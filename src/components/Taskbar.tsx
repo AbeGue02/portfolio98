@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
+interface OpenWindow {
+  id: string;
+  title: string;
+}
+
 interface TaskbarProps {
   onStartClick: () => void;
   isStartMenuOpen: boolean;
+  openWindows: OpenWindow[];
+  activeWindowId: string | null;
+  onWindowSelect: (windowId: string) => void;
 }
 
-const Taskbar: React.FC<TaskbarProps> = ({ onStartClick, isStartMenuOpen }) => {
+const Taskbar: React.FC<TaskbarProps> = ({ 
+  onStartClick, 
+  isStartMenuOpen, 
+  openWindows, 
+  activeWindowId, 
+  onWindowSelect 
+}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -34,7 +48,16 @@ const Taskbar: React.FC<TaskbarProps> = ({ onStartClick, isStartMenuOpen }) => {
         Start
       </button>
       <div className="taskbar-tasks">
-        {/* Task buttons will be rendered here */}
+        {openWindows.map(window => (
+          <button
+            key={window.id}
+            className={`taskbar-window-button ${activeWindowId === window.id ? 'active' : ''}`}
+            onClick={() => onWindowSelect(window.id)}
+            title={window.title}
+          >
+            <span className="taskbar-window-title">{window.title}</span>
+          </button>
+        ))}
       </div>
       <div className="taskbar-clock">
         {formatTime(currentTime)}

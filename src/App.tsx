@@ -87,6 +87,17 @@ function App() {
     // You can add functionality for start menu items here
   };
 
+  const handleWindowSelect = (windowId: string) => {
+    setActiveWindowId(windowId);
+    // If the window is already active, you could minimize it here in the future
+  };
+
+  // Convert openWindows to the format needed by Taskbar
+  const taskbarWindows = openWindows.map(window => ({
+    id: window.id,
+    title: window.title
+  }));
+
   return (
     <div id="root">
       <Desktop onOpenWindow={openWindow} />
@@ -98,6 +109,7 @@ function App() {
             key={window.id}
             title={window.title}
             onClose={() => closeWindow(window.id)}
+            onFocus={() => setActiveWindowId(window.id)}
             initialPosition={window.position}
             isActive={activeWindowId === window.id}
           >
@@ -115,6 +127,9 @@ function App() {
       <Taskbar
         onStartClick={handleStartClick}
         isStartMenuOpen={isStartMenuOpen}
+        openWindows={taskbarWindows}
+        activeWindowId={activeWindowId}
+        onWindowSelect={handleWindowSelect}
       />
     </div>
   );
