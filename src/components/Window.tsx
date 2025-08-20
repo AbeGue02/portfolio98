@@ -6,6 +6,8 @@ interface WindowProps {
   onClose: () => void;
   onMinimize?: () => void;
   onMaximize?: () => void;
+  onDragRestore?: (newPosition: { x: number; y: number }) => void;
+  isMaximized?: boolean;
   initialPosition?: { x: number; y: number };
   initialSize?: { width: number; height: number };
   isActive?: boolean;
@@ -18,6 +20,8 @@ const Window: React.FC<WindowProps> = ({
   onClose,
   onMinimize,
   onMaximize,
+  onDragRestore,
+  isMaximized = false,
   initialPosition = { x: 100, y: 100 },
   initialSize = { width: 400, height: 300 },
   isActive = true,
@@ -33,6 +37,15 @@ const Window: React.FC<WindowProps> = ({
   const [isRendering, setIsRendering] = useState(true);
   const [renderHeight, setRenderHeight] = useState(0);
   const windowRef = useRef<HTMLDivElement>(null);
+
+  // Update size and position when props change (for maximize/restore)
+  useEffect(() => {
+    setSize(initialSize);
+  }, [initialSize]);
+
+  useEffect(() => {
+    setPosition(initialPosition);
+  }, [initialPosition]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) { // Left mouse button
@@ -121,10 +134,30 @@ const Window: React.FC<WindowProps> = ({
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
-        setPosition({
+        const newPosition = {
           x: e.clientX - dragStart.x,
           y: e.clientY - dragStart.y,
-        });
+        };
+        
+        // If window is maximized and being dragged, restore it first
+        if (isMaximized && onDragRestore) {
+          // Calculate where the mouse should be relative to the restored window
+          // Position the window so the mouse is roughly in the center of the title bar
+          const adjustedPosition = {
+            x: e.clientX - 200, // Half of typical window width
+            y: e.clientY - 15,  // Adjust for title bar height
+          };
+          
+          // Ensure the window doesn't go off-screen
+          const maxX = window.innerWidth - 400; // Assuming 400px width for restored window
+          const adjustedX = Math.max(0, Math.min(maxX, adjustedPosition.x));
+          const adjustedY = Math.max(0, adjustedPosition.y);
+          
+          onDragRestore({ x: adjustedX, y: adjustedY });
+          return; // Exit early, let the parent handle the state change
+        }
+        
+        setPosition(newPosition);
       } else if (isResizing) {
         const deltaX = e.clientX - resizeStart.mouseX;
         const deltaY = e.clientY - resizeStart.mouseY;

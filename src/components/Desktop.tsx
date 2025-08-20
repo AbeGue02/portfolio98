@@ -65,6 +65,15 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenWindow }) => {
       case 'README.txt':
         onOpenWindow('about-me');
         break;
+      case 'My Computer':
+        onOpenWindow('my-computer');
+        break;
+      case 'My Documents':
+        onOpenWindow('my-documents');
+        break;
+      case 'Recycle Bin':
+        onOpenWindow('recycle-bin');
+        break;
       default:
         // For other icons, you could add more window types or show placeholder content
         break;
