@@ -73,17 +73,17 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '8px', minWidth: '220px' }}>
+    <div style={{ padding: '8px', minWidth: window.innerWidth <= 768 ? '100%' : '220px' }}>
       <div 
         className="win98-border-inset" 
         style={{ 
           padding: '4px', 
           marginBottom: '8px', 
           textAlign: 'right',
-          fontSize: '10px',
+          fontSize: window.innerWidth <= 768 ? '14px' : '10px',
           fontFamily: 'Press Start 2P, Terminal, Courier New, Consolas, monospace',
           backgroundColor: 'white',
-          minHeight: '24px',
+          minHeight: window.innerWidth <= 768 ? '40px' : '24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
@@ -93,7 +93,11 @@ const Calculator: React.FC = () => {
         {display}
       </div>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2px' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(4, 1fr)', 
+        gap: window.innerWidth <= 768 ? '4px' : '2px'
+      }}>
         <button className="win98-button" onClick={clear} style={{ gridColumn: 'span 2' }}>
           Clear
         </button>

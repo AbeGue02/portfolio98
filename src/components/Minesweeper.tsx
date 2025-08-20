@@ -203,12 +203,15 @@ const Minesweeper: React.FC = () => {
   };
 
   const getCellStyle = (cell: Cell) => {
+    const isMobile = window.innerWidth <= 768;
+    const cellSize = isMobile ? '30px' : '20px';
+    
     const baseStyle = {
-      width: '20px',
-      height: '20px',
+      width: cellSize,
+      height: cellSize,
       border: cell.isRevealed ? '1px inset #c3c3c3' : '2px outset #c3c3c3',
       background: cell.isRevealed ? '#c3c3c3' : '#c3c3c3',
-      fontSize: '12px',
+      fontSize: isMobile ? '14px' : '12px',
       fontWeight: 'bold',
       display: 'flex',
       alignItems: 'center',
@@ -247,12 +250,13 @@ const Minesweeper: React.FC = () => {
         style={{ 
           padding: '4px', 
           display: 'inline-block',
-          background: '#c3c3c3'
+          background: '#c3c3c3',
+          overflow: 'auto'
         }}
       >
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: `repeat(${COLS}, 20px)`,
+          gridTemplateColumns: `repeat(${COLS}, ${window.innerWidth <= 768 ? '30px' : '20px'})`,
           gap: '0px'
         }}>
           {board.map((row, rowIndex) =>

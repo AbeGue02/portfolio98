@@ -8,6 +8,7 @@ interface DesktopIconProps {
   isSelected: boolean;
   onDoubleClick: () => void;
   onClick: () => void;
+  isMobile?: boolean;
 }
 
 const DesktopIcon: React.FC<DesktopIconProps> = ({ 
@@ -17,14 +18,36 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({
   y, 
   isSelected, 
   onDoubleClick, 
-  onClick 
+  onClick,
+  isMobile = false
 }) => {
+  const iconStyle = isMobile 
+    ? {} // Let CSS handle positioning on mobile
+    : { left: x, top: y };
+
+  const handleClick = () => {
+    if (isMobile) {
+      // On mobile, single click should open the window
+      onDoubleClick();
+    } else {
+      // On desktop, single click just selects
+      onClick();
+    }
+  };
+
+  const handleDoubleClick = () => {
+    if (!isMobile) {
+      // Only handle double click on desktop
+      onDoubleClick();
+    }
+  };
+
   return (
     <div 
       className={`desktop-icon ${isSelected ? 'selected' : ''}`}
-      style={{ left: x, top: y }}
-      onClick={onClick}
-      onDoubleClick={onDoubleClick}
+      style={iconStyle}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
     >
       <img src={icon} alt={name} />
       <div className="desktop-icon-label">{name}</div>
@@ -38,6 +61,21 @@ interface DesktopProps {
 
 const Desktop: React.FC<DesktopProps> = ({ onOpenWindow }) => {
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we're on mobile
+  React.useEffect(() => {
+    const checkMobile = () => {
+      // Check for touch capability and screen size
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth <= 768;
+      setIsMobile(hasTouchScreen && isSmallScreen);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const desktopIcons = [
     { name: 'README.txt', icon: '/icons/notepad.svg', x: 20, y: 20 },
@@ -99,6 +137,7 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenWindow }) => {
           isSelected={selectedIcon === icon.name}
           onClick={() => handleIconClick(icon.name)}
           onDoubleClick={() => handleIconDoubleClick(icon.name)}
+          isMobile={isMobile}
         />
       ))}
     </div>

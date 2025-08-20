@@ -6,6 +6,7 @@
 :root {
   --win98-font: 'Press Start 2P', 'Courier New', 'Terminal', 'MS Sans Serif', monospace;
   --win98-mono-font: 'Press Start 2P', 'Courier New', 'Terminal', 'Consolas', monospace;
+  --mobile-breakpoint: 768px;
 }
 
 * {
@@ -30,12 +31,28 @@ body {
   text-rendering: optimizeSpeed;
 }
 
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 10px; /* Slightly larger for mobile readability */
+    overflow: auto; /* Allow scrolling on mobile */
+  }
+}
+
 #root {
   width: 100vw;
   height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
+}
+
+/* Mobile responsive root adjustments */
+@media (max-width: 768px) {
+  #root {
+    min-height: 100vh;
+    height: auto;
+  }
 }
 
 /* Windows 98 Border Styles */
@@ -69,6 +86,20 @@ body {
   align-items: center;
   justify-content: center;
   color: #000000;
+  border-radius: 0;
+}
+
+/* Mobile button adjustments */
+@media (max-width: 768px) {
+  .win98-button {
+    font-size: 10px;
+    padding: 8px 12px;
+    margin: 2px;
+    min-width: 90px;
+    min-height: 36px;
+    touch-action: manipulation;
+    border-radius: 0;
+  }
 }
 
 .win98-button:hover {
@@ -99,6 +130,24 @@ body {
   background-image: 
     linear-gradient(transparent 50%, rgba(0, 0, 0, 0.015) 50%);
   background-size: 100% 2px;
+}
+
+/* Mobile window adjustments */
+@media (max-width: 768px) {
+  .win98-window {
+    position: fixed;
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px;
+    bottom: 70px; /* Leave room for taskbar */
+    width: calc(100vw - 20px) !important;
+    height: calc(100vh - 80px) !important;
+    max-width: none;
+    max-height: none;
+    min-width: auto;
+    min-height: auto;
+    z-index: 1000;
+  }
 }
 
 /* Add a more visible rendering effect */
@@ -138,6 +187,16 @@ body {
   text-rendering: optimizeSpeed;
 }
 
+/* Mobile title bar */
+@media (max-width: 768px) {
+  .win98-title-bar {
+    height: 28px;
+    font-size: 10px;
+    padding: 4px 8px;
+    cursor: default; /* Disable drag on mobile */
+  }
+}
+
 .win98-title-bar.inactive {
   background: linear-gradient(90deg, #7f7f7f 0%, #7f7f7f 100%);
 }
@@ -151,20 +210,52 @@ body {
 .win98-window-controls {
   display: flex;
   gap: 2px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/* Mobile window controls spacing */
+@media (max-width: 768px) {
+  .win98-window-controls {
+    gap: 3px;
+  }
 }
 
 .win98-control-button {
   width: 16px;
-  height: 14px;
+  height: 16px;
   border: 1px outset #c3c3c3;
   background: #c3c3c3;
   font-size: 6px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   user-select: none;
   color: #000000;
+  border-radius: 0;
+  flex-shrink: 0;
+  min-width: 16px;
+  min-height: 16px;
+  max-width: 16px;
+  max-height: 16px;
+}
+
+/* Mobile control buttons */
+@media (max-width: 768px) {
+  .win98-control-button {
+    width: 24px;
+    height: 24px;
+    font-size: 8px;
+    font-weight: bold;
+    border-radius: 0;
+    flex-shrink: 0;
+    min-width: 24px;
+    min-height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+  }
 }
 
 .win98-control-button:active {
@@ -177,6 +268,16 @@ body {
   background: #c3c3c3;
   overflow: auto;
   color: #000000;
+}
+
+/* Mobile window content */
+@media (max-width: 768px) {
+  .win98-window-content {
+    padding: 8px;
+    font-size: 12px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 /* Ensure all text elements within windows are black for readability */
@@ -193,6 +294,25 @@ body {
   color: #000000;
 }
 
+/* Mobile window content text */
+@media (max-width: 768px) {
+  .win98-window-content h1,
+  .win98-window-content h2,
+  .win98-window-content h3,
+  .win98-window-content h4,
+  .win98-window-content h5,
+  .win98-window-content h6 {
+    font-size: 14px !important;
+    line-height: 1.3;
+  }
+  
+  .win98-window-content p,
+  .win98-window-content div {
+    font-size: 12px !important;
+    line-height: 1.4;
+  }
+}
+
 /* Window Resize Handles */
 .resize-handle {
   position: absolute;
@@ -202,6 +322,13 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+/* Hide resize handles on mobile */
+@media (max-width: 768px) {
+  .resize-handle {
+    display: none;
+  }
 }
 
 .resize-handle-right {
@@ -277,6 +404,19 @@ body {
   overflow: hidden;
 }
 
+/* Mobile desktop adjustments */
+@media (max-width: 768px) {
+  .win98-desktop {
+    overflow: auto;
+    min-height: calc(100vh - 60px); /* Account for larger mobile taskbar */
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+  }
+}
+
 .desktop-icon {
   position: absolute;
   width: 64px;
@@ -286,6 +426,26 @@ body {
   padding: 4px;
   border: 1px solid transparent;
   transition: all 0.1s ease;
+}
+
+/* Mobile desktop icon adjustments */
+@media (max-width: 768px) {
+  .desktop-icon {
+    position: relative;
+    width: 80px;
+    margin: 8px;
+    padding: 8px;
+    display: inline-block;
+    vertical-align: top;
+    touch-action: manipulation; /* Prevents double-tap zoom delay */
+  }
+
+  /* Better visual feedback on mobile */
+  .desktop-icon:active {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transform: scale(0.95);
+  }
 }
 
 .desktop-icon:hover {
@@ -311,6 +471,15 @@ body {
   height: 32px;
   margin-bottom: 2px;
   transition: all 0.1s ease;
+}
+
+/* Mobile icon images */
+@media (max-width: 768px) {
+  .desktop-icon img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+  }
 }
 
 .desktop-icon:active img {
@@ -344,6 +513,14 @@ body {
   border-radius: 1px;
 }
 
+/* Mobile desktop icon labels */
+@media (max-width: 768px) {
+  .desktop-icon-label {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+}
+
 .desktop-icon:hover .desktop-icon-label {
   text-shadow: 1px 1px 0px #000000, 0 0 3px rgba(255, 255, 255, 0.3);
 }
@@ -365,6 +542,16 @@ body {
   padding: 2px;
 }
 
+/* Mobile taskbar adjustments */
+@media (max-width: 768px) {
+  .win98-taskbar {
+    height: 50px;
+    padding: 4px;
+    flex-wrap: wrap;
+    overflow-x: auto;
+  }
+}
+
 .start-button {
   height: 26px;
   padding: 0 8px;
@@ -380,6 +567,16 @@ body {
   color: #000000;
 }
 
+/* Mobile start button */
+@media (max-width: 768px) {
+  .start-button {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 10px;
+    gap: 6px;
+  }
+}
+
 .start-button:active {
   border: 2px inset #c3c3c3;
 }
@@ -387,6 +584,14 @@ body {
 .start-button img {
   width: 16px;
   height: 16px;
+}
+
+/* Mobile start button image */
+@media (max-width: 768px) {
+  .start-button img {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .taskbar-tasks {
@@ -400,6 +605,18 @@ body {
   padding: 2px;
   gap: 2px;
   overflow: hidden;
+}
+
+/* Mobile taskbar tasks */
+@media (max-width: 768px) {
+  .taskbar-tasks {
+    height: 40px;
+    margin: 0 2px;
+    padding: 4px;
+    gap: 4px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
 }
 
 .taskbar-window-button {
@@ -416,6 +633,18 @@ body {
   align-items: center;
   overflow: hidden;
   color: #000000;
+}
+
+/* Mobile taskbar window buttons */
+@media (max-width: 768px) {
+  .taskbar-window-button {
+    height: 32px;
+    min-width: 100px;
+    max-width: 140px;
+    padding: 0 6px;
+    font-size: 9px;
+    flex-shrink: 0;
+  }
 }
 
 .taskbar-window-button:hover {
@@ -450,6 +679,15 @@ body {
   color: #000000;
 }
 
+/* Mobile taskbar clock */
+@media (max-width: 768px) {
+  .taskbar-clock {
+    width: 90px;
+    height: 40px;
+    font-size: 9px;
+  }
+}
+
 /* Start Menu Styles */
 .start-menu {
   position: absolute;
@@ -459,6 +697,19 @@ body {
   background: #c3c3c3;
   border: 2px outset #c3c3c3;
   z-index: 1000;
+}
+
+/* Mobile start menu */
+@media (max-width: 768px) {
+  .start-menu {
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    width: auto;
+    margin: 0 10px;
+    z-index: 2000;
+  }
 }
 
 .start-menu-header {
@@ -472,6 +723,15 @@ body {
   align-items: center;
   padding: 0 8px;
   text-rendering: optimizeSpeed;
+}
+
+/* Mobile start menu header */
+@media (max-width: 768px) {
+  .start-menu-header {
+    height: 32px;
+    font-size: 10px;
+    padding: 0 12px;
+  }
 }
 
 .start-menu-items {
@@ -490,6 +750,15 @@ body {
   color: #000000;
 }
 
+/* Mobile start menu items */
+@media (max-width: 768px) {
+  .start-menu-item {
+    height: 40px;
+    padding: 0 24px 0 12px;
+    font-size: 10px;
+  }
+}
+
 .start-menu-item:hover {
   background: #0054e3;
   color: white;
@@ -499,6 +768,15 @@ body {
   width: 16px;
   height: 16px;
   margin-right: 8px;
+}
+
+/* Mobile start menu item images */
+@media (max-width: 768px) {
+  .start-menu-item img {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+  }
 }
 
 /* Calculator Specific Styles */
@@ -516,6 +794,18 @@ body {
   align-items: center;
   justify-content: center;
   color: #000000;
+}
+
+/* Mobile calculator button adjustments */
+@media (max-width: 768px) {
+  .calculator-button {
+    font-size: 12px;
+    padding: 8px;
+    margin: 2px;
+    min-width: 50px;
+    min-height: 50px;
+    touch-action: manipulation;
+  }
 }
 
 .calculator-button:hover {
@@ -541,6 +831,16 @@ body {
   cursor: pointer;
   user-select: none;
   color: #000000;
+}
+
+/* Mobile minesweeper cell adjustments */
+@media (max-width: 768px) {
+  .minesweeper-cell {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    touch-action: manipulation;
+  }
 }
 
 .minesweeper-cell:active {
@@ -608,11 +908,26 @@ body {
   letter-spacing: 2px;
 }
 
+/* Mobile startup screen adjustments */
+@media (max-width: 768px) {
+  .startup-title {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+}
+
 .startup-subtitle {
   font-size: 12px;
   margin: 0;
   opacity: 0.9;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile startup subtitle */
+@media (max-width: 768px) {
+  .startup-subtitle {
+    font-size: 10px;
+  }
 }
 
 .startup-loading {
@@ -640,6 +955,14 @@ body {
   border: 2px inset #c3c3c3;
   position: relative;
   overflow: hidden;
+}
+
+/* Mobile progress bar */
+@media (max-width: 768px) {
+  .progress-bar {
+    width: 250px;
+    height: 16px;
+  }
 }
 
 .progress-bar-fill {
@@ -728,5 +1051,46 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Mobile Touch Optimizations */
+@media (max-width: 768px) {
+  /* Better touch targets */
+  button, .start-menu-item, .taskbar-window-button {
+    min-height: 44px; /* iOS recommendation for touch targets */
+  }
+
+  /* Desktop icons already have good touch target size */
+  .desktop-icon {
+    min-height: 64px;
+    min-width: 64px;
+  }
+
+  /* Remove hover effects on touch devices */
+  @media (hover: none) {
+    .desktop-icon:hover,
+    .win98-button:hover,
+    .start-button:hover,
+    .start-menu-item:hover,
+    .taskbar-window-button:hover {
+      background: inherit;
+      border: inherit;
+    }
+  }
+
+  /* Smoother scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  /* Better tap highlights */
+  * {
+    -webkit-tap-highlight-color: rgba(0, 84, 227, 0.3);
   }
 }
