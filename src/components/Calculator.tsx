@@ -86,7 +86,8 @@ const Calculator: React.FC = () => {
           minHeight: '24px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end'
+          justifyContent: 'flex-end',
+          color: '#000000'
         }}
       >
         {display}

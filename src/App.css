@@ -68,6 +68,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: #000000;
 }
 
 .win98-button:hover {
@@ -163,6 +164,7 @@ body {
   justify-content: center;
   cursor: pointer;
   user-select: none;
+  color: #000000;
 }
 
 .win98-control-button:active {
@@ -174,6 +176,21 @@ body {
   padding: 4px;
   background: #c3c3c3;
   overflow: auto;
+  color: #000000;
+}
+
+/* Ensure all text elements within windows are black for readability */
+.win98-window-content *, 
+.win98-window-content p,
+.win98-window-content div,
+.win98-window-content span,
+.win98-window-content h1,
+.win98-window-content h2,
+.win98-window-content h3,
+.win98-window-content h4,
+.win98-window-content h5,
+.win98-window-content h6 {
+  color: #000000;
 }
 
 /* Window Resize Handles */
@@ -360,6 +377,7 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
+  color: #000000;
 }
 
 .start-button:active {
@@ -397,6 +415,7 @@ body {
   display: flex;
   align-items: center;
   overflow: hidden;
+  color: #000000;
 }
 
 .taskbar-window-button:hover {
@@ -428,6 +447,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 7px;
+  color: #000000;
 }
 
 /* Start Menu Styles */
@@ -467,6 +487,7 @@ body {
   font-family: var(--win98-font);
   font-size: 8px; /* Adjusted for Press Start 2P */
   text-rendering: optimizeSpeed;
+  color: #000000;
 }
 
 .start-menu-item:hover {
@@ -494,6 +515,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #000000;
 }
 
 .calculator-button:hover {
@@ -518,6 +540,7 @@ body {
   justify-content: center;
   cursor: pointer;
   user-select: none;
+  color: #000000;
 }
 
 .minesweeper-cell:active {

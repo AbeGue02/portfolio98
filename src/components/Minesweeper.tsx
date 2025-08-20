@@ -231,13 +231,13 @@ const Minesweeper: React.FC = () => {
   return (
     <div style={{ padding: '8px', textAlign: 'center' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-        <div className="win98-border-inset" style={{ padding: '4px', minWidth: '40px' }}>
+        <div className="win98-border-inset" style={{ padding: '4px', minWidth: '40px', color: '#000000' }}>
           {String(mineCount).padStart(3, '0')}
         </div>
         <button className="win98-button" onClick={initializeGame}>
           {gameStatus === 'won' ? '😎' : gameStatus === 'lost' ? '😵' : '🙂'}
         </button>
-        <div className="win98-border-inset" style={{ padding: '4px', minWidth: '40px' }}>
+        <div className="win98-border-inset" style={{ padding: '4px', minWidth: '40px', color: '#000000' }}>
           {String(time).padStart(3, '0')}
         </div>
       </div>
@@ -271,12 +271,12 @@ const Minesweeper: React.FC = () => {
       </div>
 
       {gameStatus === 'won' && (
-        <div style={{ marginTop: '8px', color: 'green', fontWeight: 'bold' }}>
+        <div style={{ marginTop: '8px', color: '#000000', fontWeight: 'bold' }}>
           You Win! 🎉
         </div>
       )}
       {gameStatus === 'lost' && (
-        <div style={{ marginTop: '8px', color: 'red', fontWeight: 'bold' }}>
+        <div style={{ marginTop: '8px', color: '#000000', fontWeight: 'bold' }}>
           Game Over! 💥
         </div>
       )}
