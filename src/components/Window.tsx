@@ -274,16 +274,16 @@ const Window: React.FC<WindowProps> = ({
         <div className="win98-window-controls">
           {onMinimize && (
             <button className="win98-control-button" onClick={onMinimize}>
-              _
+              <strong>_</strong>
             </button>
           )}
           {onMaximize && (
             <button className="win98-control-button" onClick={onMaximize}>
-              □
+              <strong>□</strong>
             </button>
           )}
           <button className="win98-control-button" onClick={onClose}>
-            ×
+            <strong>×</strong>
           </button>
         </div>
       </div>
