@@ -1,42 +1,328 @@
+/* Windows 98 Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  background: #c3c3c3;
+  overflow: hidden;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Windows 98 Border Styles */
+.win98-border {
+  border: 2px outset #c3c3c3;
+  background: #c3c3c3;
+}
+
+.win98-border-inset {
+  border: 2px inset #c3c3c3;
+  background: #c3c3c3;
+}
+
+.win98-border-flat {
+  border: 1px solid #808080;
+  background: #c3c3c3;
+}
+
+/* Button Styles */
+.win98-button {
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  border: 2px outset #c3c3c3;
+  background: #c3c3c3;
+  padding: 2px 8px;
+  margin: 1px;
+  cursor: pointer;
+  min-width: 75px;
+  min-height: 23px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.win98-button:hover {
+  background: #dfdfdf;
+}
+
+.win98-button:active {
+  border: 2px inset #c3c3c3;
+  background: #dfdfdf;
+}
+
+.win98-button:disabled {
+  color: #808080;
+  cursor: default;
+  background: #c3c3c3;
+}
+
+/* Window Styles */
+.win98-window {
+  border: 2px outset #c3c3c3;
+  background: #c3c3c3;
+  position: absolute;
+  min-width: 200px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.win98-title-bar {
+  height: 18px;
+  background: linear-gradient(90deg, #0054e3 0%, #0054e3 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  cursor: move;
+  user-select: none;
+}
+
+.win98-title-bar.inactive {
+  background: linear-gradient(90deg, #7f7f7f 0%, #7f7f7f 100%);
+}
+
+.win98-title-text {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.win98-window-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.win98-control-button {
+  width: 16px;
+  height: 14px;
+  border: 1px outset #c3c3c3;
+  background: #c3c3c3;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.win98-control-button:active {
+  border: 1px inset #c3c3c3;
+}
+
+.win98-window-content {
+  flex: 1;
+  padding: 4px;
+  background: #c3c3c3;
+  overflow: auto;
+}
+
+/* Desktop Styles */
+.win98-desktop {
+  flex: 1;
+  background: #008080;
+  position: relative;
+  overflow: hidden;
+}
+
+.desktop-icon {
+  position: absolute;
+  width: 64px;
   text-align: center;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.desktop-icon img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 2px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.desktop-icon-label {
+  color: white;
+  font-size: 11px;
+  text-shadow: 1px 1px 0px #000000;
+  word-wrap: break-word;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.desktop-icon.selected .desktop-icon-label {
+  background: #0054e3;
+  color: white;
 }
 
-.card {
-  padding: 2em;
+/* Taskbar Styles */
+.win98-taskbar {
+  height: 30px;
+  background: #c3c3c3;
+  border-top: 1px solid #dfdfdf;
+  display: flex;
+  align-items: center;
+  padding: 2px;
 }
 
-.read-the-docs {
-  color: #888;
+.start-button {
+  height: 26px;
+  padding: 0 8px;
+  border: 2px outset #c3c3c3;
+  background: #c3c3c3;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.start-button:active {
+  border: 2px inset #c3c3c3;
+}
+
+.start-button img {
+  width: 16px;
+  height: 16px;
+}
+
+.taskbar-tasks {
+  flex: 1;
+  height: 26px;
+  margin: 0 4px;
+  background: #c3c3c3;
+  border: 1px inset #c3c3c3;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.taskbar-clock {
+  width: 80px;
+  height: 26px;
+  border: 1px inset #c3c3c3;
+  background: #c3c3c3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+/* Start Menu Styles */
+.start-menu {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 200px;
+  background: #c3c3c3;
+  border: 2px outset #c3c3c3;
+  z-index: 1000;
+}
+
+.start-menu-header {
+  height: 20px;
+  background: linear-gradient(90deg, #0054e3 0%, #0054e3 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.start-menu-items {
+  padding: 4px 0;
+}
+
+.start-menu-item {
+  height: 24px;
+  padding: 0 20px 0 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.start-menu-item:hover {
+  background: #0054e3;
+  color: white;
+}
+
+.start-menu-item img {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+/* Calculator Specific Styles */
+.calculator-button {
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  border: 2px outset #c3c3c3;
+  background: #c3c3c3;
+  padding: 4px;
+  margin: 1px;
+  cursor: pointer;
+  min-width: 30px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculator-button:hover {
+  background: #dfdfdf;
+}
+
+.calculator-button:active {
+  border: 2px inset #c3c3c3;
+  background: #dfdfdf;
+}
+
+/* Minesweeper Specific Styles */
+.minesweeper-cell {
+  width: 20px;
+  height: 20px;
+  border: 2px outset #c3c3c3;
+  background: #c3c3c3;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.minesweeper-cell:active {
+  border: 1px inset #c3c3c3;
+}
+
+.minesweeper-cell.revealed {
+  border: 1px inset #c3c3c3;
+  background: #c3c3c3;
+}
+
+.minesweeper-display {
+  background: #000000;
+  color: #ff0000;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border: 2px inset #c3c3c3;
+  min-width: 40px;
+  text-align: center;
 }
