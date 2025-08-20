@@ -1,11 +1,11 @@
 /* Windows 98 Base Styles */
 /* Import authentic retro fonts */
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap');
 
 /* Using fonts that give a proper retro/bitmap look */
 :root {
-  --win98-font: 'VT323', 'Courier New', 'Terminal', 'MS Sans Serif', monospace;
-  --win98-mono-font: 'VT323', 'Courier New', 'Terminal', 'Consolas', monospace;
+  --win98-font: 'Press Start 2P', 'Courier New', 'Terminal', 'MS Sans Serif', monospace;
+  --win98-mono-font: 'Press Start 2P', 'Courier New', 'Terminal', 'Consolas', monospace;
 }
 
 * {
@@ -23,7 +23,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--win98-font);
-  font-size: 14px; /* Slightly larger for VT323 */
+  font-size: 8px; /* Smaller size for Press Start 2P */
   background: #c3c3c3;
   overflow: hidden;
   /* Disable text selection antialiasing */
@@ -57,7 +57,7 @@ body {
 /* Button Styles */
 .win98-button {
   font-family: var(--win98-font);
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   border: 2px outset #c3c3c3;
   background: #c3c3c3;
   padding: 2px 8px;
@@ -127,7 +127,7 @@ body {
   background: linear-gradient(90deg, #0054e3 0%, #0054e3 100%);
   color: white;
   font-family: var(--win98-font);
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -157,7 +157,7 @@ body {
   height: 14px;
   border: 1px outset #c3c3c3;
   background: #c3c3c3;
-  font-size: 9px;
+  font-size: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -316,7 +316,7 @@ body {
 /* Desktop icon labels with bitmap font styling */
 .desktop-icon-label {
   color: white;
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   font-family: var(--win98-font);
   text-shadow: 1px 1px 0px #000000;
   word-wrap: break-word;
@@ -354,7 +354,7 @@ body {
   border: 2px outset #c3c3c3;
   background: #c3c3c3;
   font-family: var(--win98-font);
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   font-weight: bold;
   cursor: pointer;
   display: flex;
@@ -392,7 +392,7 @@ body {
   border: 2px outset #c3c3c3;
   background: #c3c3c3;
   font-family: var(--win98-font);
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -427,7 +427,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 7px;
 }
 
 /* Start Menu Styles */
@@ -446,7 +446,7 @@ body {
   background: linear-gradient(90deg, #0054e3 0%, #0054e3 100%);
   color: white;
   font-family: var(--win98-font);
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -465,7 +465,7 @@ body {
   align-items: center;
   cursor: pointer;
   font-family: var(--win98-font);
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   text-rendering: optimizeSpeed;
 }
 
@@ -483,7 +483,7 @@ body {
 /* Calculator Specific Styles */
 .calculator-button {
   font-family: var(--win98-font);
-  font-size: 14px; /* Adjusted for VT323 */
+  font-size: 8px; /* Adjusted for Press Start 2P */
   border: 2px outset #c3c3c3;
   background: #c3c3c3;
   padding: 4px;
@@ -511,7 +511,7 @@ body {
   height: 20px;
   border: 2px outset #c3c3c3;
   background: #c3c3c3;
-  font-size: 12px;
+  font-size: 8px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -571,13 +571,13 @@ body {
 }
 
 .logo-icon {
-  font-size: 64px;
+  font-size: 32px;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .startup-title {
-  font-size: 48px;
+  font-size: 24px;
   font-weight: bold;
   margin: 0 0 10px 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -586,7 +586,7 @@ body {
 }
 
 .startup-subtitle {
-  font-size: 18px;
+  font-size: 12px;
   margin: 0;
   opacity: 0.9;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -597,7 +597,7 @@ body {
 }
 
 .loading-message {
-  font-size: 16px;
+  font-size: 10px;
   margin-bottom: 20px;
   height: 20px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -638,7 +638,7 @@ body {
 }
 
 .progress-text {
-  font-size: 14px;
+  font-size: 8px;
   font-family: var(--win98-mono-font);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   min-width: 40px;
@@ -652,7 +652,7 @@ body {
 }
 
 .startup-info {
-  font-size: 12px;
+  font-size: 8px;
   opacity: 0.8;
   text-align: center;
   line-height: 1.4;
