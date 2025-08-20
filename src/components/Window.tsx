@@ -24,9 +24,12 @@ const Window: React.FC<WindowProps> = ({
   onFocus,
 }) => {
   const [position, setPosition] = useState(initialPosition);
-  const [size] = useState(initialSize);
+  const [size, setSize] = useState(initialSize);
   const [isDragging, setIsDragging] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizeDirection, setResizeDirection] = useState<string>('');
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, width: 0, height: 0, mouseX: 0, mouseY: 0 });
   const [isRendering, setIsRendering] = useState(true);
   const [renderHeight, setRenderHeight] = useState(0);
   const windowRef = useRef<HTMLDivElement>(null);
@@ -39,6 +42,26 @@ const Window: React.FC<WindowProps> = ({
         y: e.clientY - position.y,
       });
       // Focus the window when clicking on title bar
+      if (onFocus) {
+        onFocus();
+      }
+    }
+  };
+
+  const handleResizeMouseDown = (e: React.MouseEvent, direction: string) => {
+    e.stopPropagation();
+    e.preventDefault(); // Prevent text selection
+    if (e.button === 0) {
+      setIsResizing(true);
+      setResizeDirection(direction);
+      setResizeStart({
+        x: position.x,
+        y: position.y,
+        width: size.width,
+        height: size.height,
+        mouseX: e.clientX,
+        mouseY: e.clientY,
+      });
       if (onFocus) {
         onFocus();
       }
@@ -93,7 +116,7 @@ const Window: React.FC<WindowProps> = ({
     setTimeout(() => {
       requestAnimationFrame(animate);
     }, 50);
-  }, [size.height]); // Re-run animation when window size changes
+  }, []); // Remove size.height dependency to only run on mount
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -102,23 +125,98 @@ const Window: React.FC<WindowProps> = ({
           x: e.clientX - dragStart.x,
           y: e.clientY - dragStart.y,
         });
+      } else if (isResizing) {
+        const deltaX = e.clientX - resizeStart.mouseX;
+        const deltaY = e.clientY - resizeStart.mouseY;
+        
+        let newWidth = resizeStart.width;
+        let newHeight = resizeStart.height;
+        let newX = resizeStart.x;
+        let newY = resizeStart.y;
+
+        // Minimum size constraints
+        const minWidth = 200;
+        const minHeight = 150;
+
+        // Viewport boundaries
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight - 40; // Account for taskbar
+
+        // Handle horizontal resizing
+        if (resizeDirection.includes('right')) {
+          // Limit right edge to viewport
+          const maxWidth = viewportWidth - position.x;
+          newWidth = Math.max(minWidth, Math.min(maxWidth, resizeStart.width + deltaX));
+        } else if (resizeDirection.includes('left')) {
+          const proposedWidth = resizeStart.width - deltaX;
+          const proposedX = resizeStart.x + deltaX;
+          
+          // Ensure left edge doesn't go below 0 and width meets minimum
+          if (proposedWidth >= minWidth && proposedX >= 0) {
+            newWidth = proposedWidth;
+            newX = proposedX;
+          } else if (proposedX < 0) {
+            // If trying to move left edge past 0, clamp to 0 and adjust width
+            newX = 0;
+            newWidth = resizeStart.x + resizeStart.width;
+          } else {
+            // If width would be too small, maintain minimum width
+            newWidth = minWidth;
+            newX = resizeStart.x + resizeStart.width - minWidth;
+          }
+        }
+
+        // Handle vertical resizing
+        if (resizeDirection.includes('bottom')) {
+          // Limit bottom edge to viewport (accounting for taskbar)
+          const maxHeight = viewportHeight - position.y;
+          newHeight = Math.max(minHeight, Math.min(maxHeight, resizeStart.height + deltaY));
+        } else if (resizeDirection.includes('top')) {
+          const proposedHeight = resizeStart.height - deltaY;
+          const proposedY = resizeStart.y + deltaY;
+          
+          // Ensure top edge doesn't go below 0 and height meets minimum
+          if (proposedHeight >= minHeight && proposedY >= 0) {
+            newHeight = proposedHeight;
+            newY = proposedY;
+          } else if (proposedY < 0) {
+            // If trying to move top edge past 0, clamp to 0 and adjust height
+            newY = 0;
+            newHeight = resizeStart.y + resizeStart.height;
+          } else {
+            // If height would be too small, maintain minimum height
+            newHeight = minHeight;
+            newY = resizeStart.y + resizeStart.height - minHeight;
+          }
+        }
+
+        setSize({ width: newWidth, height: newHeight });
+        setPosition({ x: newX, y: newY });
       }
     };
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      setIsResizing(false);
+      setResizeDirection('');
     };
 
-    if (isDragging) {
+    if (isDragging || isResizing) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
+      // Disable text selection while dragging/resizing
+      document.body.style.userSelect = 'none';
+      document.body.style.webkitUserSelect = 'none';
     }
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      // Re-enable text selection
+      document.body.style.userSelect = '';
+      document.body.style.webkitUserSelect = '';
     };
-  }, [isDragging, dragStart]);
+  }, [isDragging, isResizing, dragStart, resizeStart, resizeDirection, position]);
 
   return (
     <div
@@ -159,6 +257,40 @@ const Window: React.FC<WindowProps> = ({
       <div className="win98-window-content">
         {children}
       </div>
+      
+      {/* Resize handles */}
+      <div 
+        className="resize-handle resize-handle-right"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'right')}
+      />
+      <div 
+        className="resize-handle resize-handle-bottom"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'bottom')}
+      />
+      <div 
+        className="resize-handle resize-handle-corner"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'bottom-right')}
+      />
+      <div 
+        className="resize-handle resize-handle-left"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'left')}
+      />
+      <div 
+        className="resize-handle resize-handle-top"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'top')}
+      />
+      <div 
+        className="resize-handle resize-handle-top-left"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'top-left')}
+      />
+      <div 
+        className="resize-handle resize-handle-top-right"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'top-right')}
+      />
+      <div 
+        className="resize-handle resize-handle-bottom-left"
+        onMouseDown={(e) => handleResizeMouseDown(e, 'bottom-left')}
+      />
     </div>
   );
 };
