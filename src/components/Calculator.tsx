@@ -81,7 +81,7 @@ const Calculator: React.FC = () => {
           marginBottom: '8px', 
           textAlign: 'right',
           fontSize: '16px',
-          fontFamily: 'monospace',
+          fontFamily: 'VT323, Terminal, Courier New, Consolas, monospace',
           backgroundColor: 'white',
           minHeight: '24px',
           display: 'flex',
