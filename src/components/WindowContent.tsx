@@ -9,18 +9,23 @@ interface WindowContentProps {
 export const AboutMeWindow: React.FC<WindowContentProps> = () => {
   return (
     <div style={{ padding: '8px' }}>
-      <h3 style={{ margin: '0 0 8px 0', fontSize: '10px', color: '#000000' }}>About Me</h3>
+      <h3 style={{ margin: '0 0 8px 0', fontSize: '10px', color: '#000000' }}>README.txt</h3>
       <div className="win98-border-inset" style={{ padding: '8px', minHeight: '150px' }}>
-        <p style={{ margin: '0 0 8px 0', fontSize: '8px', lineHeight: '1.4', color: '#000000' }}>
-          Welcome to my Windows 98-style portfolio! This is a nostalgic recreation 
+        <p className="win98-readable-text" style={{ margin: '0 0 8px 0' }}>
+          Welcome to my Windows 98 styled portfolio! This is a nostalgic recreation 
           of the classic Windows 98 interface built with modern React and TypeScript.
         </p>
-        <p style={{ margin: '0 0 8px 0', fontSize: '8px', lineHeight: '1.4', color: '#000000' }}>
+        <p className="win98-readable-text" style={{ margin: '0 0 8px 0' }}>
           Feel free to explore the desktop, open windows, and experience the 
           retro computing aesthetic.
         </p>
-        <p style={{ margin: '0', fontSize: '8px', lineHeight: '1.4', color: '#000000' }}>
-          Built with ❤️ using React, TypeScript, and Vite.
+        <p className="win98-readable-text" style={{ margin: '0' }}>
+          This portfolio shows my prowess in web development and design. Especially my
+          attention to detail and user experience, as well as my talent in creating
+          intuitive and visually appealing interfaces. I love the retro aesthetic and wanted to
+          bring it back to life in this project through the feeling of opening your first 
+          computer and exploring its features. Feel free to explore, and maybe you will find 
+          some hidden secrets.
         </p>
       </div>
     </div>

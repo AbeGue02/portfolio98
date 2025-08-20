@@ -23,7 +23,7 @@ const Window: React.FC<WindowProps> = ({
   onDragRestore,
   isMaximized = false,
   initialPosition = { x: 100, y: 100 },
-  initialSize = { width: 400, height: 300 },
+  initialSize = { width: 600, height: 400 },
   isActive = true,
   onFocus,
 }) => {
@@ -168,8 +168,8 @@ const Window: React.FC<WindowProps> = ({
         let newY = resizeStart.y;
 
         // Minimum size constraints
-        const minWidth = 200;
-        const minHeight = 150;
+        const minWidth = 300; // Increased from 200
+        const minHeight = 250; // Increased from 150
 
         // Viewport boundaries
         const viewportWidth = window.innerWidth;

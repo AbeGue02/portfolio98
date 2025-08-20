@@ -78,12 +78,12 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenWindow }) => {
   }, []);
 
   const desktopIcons = [
-    { name: 'README.txt', icon: '/icons/notepad.svg', x: 20, y: 20 },
-    { name: 'My Computer', icon: '/icons/my-computer.svg', x: 20, y: 120 },
-    { name: 'Recycle Bin', icon: '/icons/recycle-bin.svg', x: 20, y: 220 },
-    { name: 'My Documents', icon: '/icons/folder.svg', x: 20, y: 320 },
-    { name: 'Calculator', icon: '/icons/calculator.svg', x: 120, y: 20 },
-    { name: 'Minesweeper', icon: '/icons/minesweeper.svg', x: 120, y: 120 },
+    { name: 'README.txt', icon: '/icons/notepad.svg', x: 30, y: 30 },
+    { name: 'My Computer', icon: '/icons/my-computer.svg', x: 30, y: 160 },
+    { name: 'Recycle Bin', icon: '/icons/recycle-bin.svg', x: 30, y: 290 },
+    { name: 'My Documents', icon: '/icons/folder.svg', x: 30, y: 420 },
+    { name: 'Calculator', icon: '/icons/calculator.svg', x: 180, y: 30 },
+    { name: 'Minesweeper', icon: '/icons/minesweeper.svg', x: 180, y: 160 },
   ];
 
   const handleIconClick = (iconName: string) => {

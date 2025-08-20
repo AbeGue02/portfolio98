@@ -76,6 +76,7 @@ function App() {
           title: 'Calculator',
           component: CalculatorWindow,
           position: { x: 300, y: 150 },
+          size: { width: 400, height: 600 }, // Keep smaller for calculator
         };
         break;
       case 'minesweeper':
@@ -151,7 +152,7 @@ function App() {
             ...windowObj,
             isMaximized: true,
             originalPosition: windowObj.position,
-            originalSize: windowObj.size || { width: 400, height: 300 },
+            originalSize: windowObj.size || { width: 1200, height: 1000 },
             position: { x: 0, y: 0 },
             size: { width: maxWidth, height: maxHeight },
           };
@@ -168,7 +169,7 @@ function App() {
           ...windowObj,
           isMaximized: false,
           position: newPosition,
-          size: windowObj.originalSize || { width: 400, height: 300 },
+          size: windowObj.originalSize || { width: 1200, height: 1000 },
         };
       }
       return windowObj;
@@ -247,7 +248,7 @@ function App() {
             initialPosition={window.position}
             initialSize={window.isMaximized ? 
               { width: globalThis.innerWidth, height: globalThis.innerHeight - 40 } :
-              { width: 400, height: 300 }
+              window.size // Use the window's size if specified, otherwise Window component will use its default
             }
             isActive={activeWindowId === window.id}
           >
