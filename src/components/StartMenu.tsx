@@ -40,7 +40,7 @@ const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose, onItemClick }) =
       />
       <div className="start-menu">
         <div className="start-menu-header">
-          Windows 98
+          AG Studio
         </div>
         <div className="start-menu-items">
           {menuItems.map((item, index) => (

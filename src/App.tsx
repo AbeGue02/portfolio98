@@ -4,6 +4,7 @@ import Desktop from './components/Desktop';
 import Taskbar from './components/Taskbar';
 import StartMenu from './components/StartMenu';
 import Window from './components/Window';
+import StartupScreen from './components/StartupScreen';
 import { AboutMeWindow, MyComputerWindow, MyDocumentsWindow, CalculatorWindow, MinesweeperWindow } from './components/WindowContent';
 
 interface OpenWindow {
@@ -17,6 +18,7 @@ function App() {
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [openWindows, setOpenWindows] = useState<OpenWindow[]>([]);
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
+  const [showStartup, setShowStartup] = useState(true);
 
   const openWindow = (windowType: string) => {
     const windowId = `${windowType}-${Date.now()}`;
@@ -25,7 +27,7 @@ function App() {
     switch (windowType) {
       case 'about-me':
         windowConfig = {
-          title: 'About Me - Notepad',
+          title: 'README.txt - Notepad',
           component: AboutMeWindow,
           position: { x: 150, y: 150 },
         };
@@ -97,6 +99,15 @@ function App() {
     id: window.id,
     title: window.title
   }));
+
+  const handleStartupComplete = () => {
+    setShowStartup(false);
+  };
+
+  // Show startup screen first
+  if (showStartup) {
+    return <StartupScreen onComplete={handleStartupComplete} />;
+  }
 
   return (
     <div id="root">

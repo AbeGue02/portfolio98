@@ -40,12 +40,12 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenWindow }) => {
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
 
   const desktopIcons = [
-    { name: 'My Computer', icon: '/icons/my-computer.svg', x: 20, y: 20 },
-    { name: 'Recycle Bin', icon: '/icons/recycle-bin.svg', x: 20, y: 100 },
-    { name: 'My Documents', icon: '/icons/folder.svg', x: 20, y: 180 },
-    { name: 'About Me', icon: '/icons/notepad.svg', x: 20, y: 260 },
-    { name: 'Calculator', icon: '/icons/calculator.svg', x: 100, y: 20 },
-    { name: 'Minesweeper', icon: '/icons/minesweeper.svg', x: 100, y: 100 },
+    { name: 'README.txt', icon: '/icons/notepad.svg', x: 20, y: 20 },
+    { name: 'My Computer', icon: '/icons/my-computer.svg', x: 20, y: 120 },
+    { name: 'Recycle Bin', icon: '/icons/recycle-bin.svg', x: 20, y: 220 },
+    { name: 'My Documents', icon: '/icons/folder.svg', x: 20, y: 320 },
+    { name: 'Calculator', icon: '/icons/calculator.svg', x: 120, y: 20 },
+    { name: 'Minesweeper', icon: '/icons/minesweeper.svg', x: 120, y: 120 },
   ];
 
   const handleIconClick = (iconName: string) => {
@@ -53,8 +53,22 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenWindow }) => {
   };
 
   const handleIconDoubleClick = (iconName: string) => {
-    setSelectedIcon(iconName);
-    onOpenWindow(iconName.toLowerCase().replace(' ', '-'));
+    setSelectedIcon(null);
+    
+    switch (iconName) {
+      case 'Calculator':
+        onOpenWindow('calculator');
+        break;
+      case 'Minesweeper':
+        onOpenWindow('minesweeper');
+        break;
+      case 'README.txt':
+        onOpenWindow('about-me');
+        break;
+      default:
+        // For other icons, you could add more window types or show placeholder content
+        break;
+    }
   };
 
   const handleDesktopClick = (e: React.MouseEvent) => {
